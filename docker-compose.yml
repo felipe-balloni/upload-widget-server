@@ -1,6 +1,10 @@
+version: '3.9'
+
 services:
   pg:
     image: bitnami/postgresql:latest
+    networks:
+      - app_network
     ports:
       - '5432:5432'
     environment:
@@ -10,3 +14,7 @@ services:
       - POSTGRESQL_PERFORM_RESTORE=true
     volumes:
        - './docker:/docker-entrypoint-initdb.d'
+
+networks:
+  app_network:
+    driver: bridge
