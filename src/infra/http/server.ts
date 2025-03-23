@@ -1,4 +1,3 @@
-import { env } from '@/env'
 import { uploadImageRoute } from '@/infra/http/routes/upload-image'
 import { fastifyCors } from '@fastify/cors'
 import { fastifyMultipart } from '@fastify/multipart'
@@ -7,10 +6,10 @@ import { fastifySwaggerUi } from '@fastify/swagger-ui'
 import { fastify } from 'fastify'
 import {
     hasZodFastifySchemaValidationErrors,
-    jsonSchemaTransform,
     serializerCompiler,
     validatorCompiler,
 } from 'fastify-type-provider-zod'
+import { transformSwaggerSchema } from './transform-swager-schema'
 
 const server = fastify({ logger: true })
 
@@ -40,12 +39,11 @@ server.register(fastifyMultipart)
 server.register(fastifySwagger, {
     openapi: {
         info: {
-            title: 'Upload Image API',
-            description: 'Upload Image API',
+            title: 'Upload Server',
             version: '1.0.0',
         },
     },
-    transform: jsonSchemaTransform,
+    transform: transformSwaggerSchema,
 })
 
 server.register(fastifySwaggerUi, {
