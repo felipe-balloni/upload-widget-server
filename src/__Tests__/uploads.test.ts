@@ -4,7 +4,7 @@ import { schema } from '@/infra/db/schemas'
 import { drizzle } from 'drizzle-orm/postgres-js'
 import { migrate } from 'drizzle-orm/postgres-js/migrator'
 import { validate as validateUUID } from 'uuid'
-import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
+import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
 function isUUIDv7(uuid: string): boolean {
     // Verifica se é um UUID válido

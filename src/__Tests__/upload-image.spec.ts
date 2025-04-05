@@ -6,7 +6,7 @@ import { db } from '@/infra/db'
 import { schema } from '@/infra/db/schemas'
 import { isLeft, isRight, unwrapEither } from '@/infra/shared/either'
 import { eq } from 'drizzle-orm'
-import { beforeAll, describe, expect, expectTypeOf, it, vi } from 'vitest'
+import { beforeAll, describe, expect, it, vi } from 'vitest'
 
 describe('UploadImage', () => {
     beforeAll(() => {

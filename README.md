@@ -35,5 +35,4 @@ Aqui estão as tarefas planejadas, organizadas por prioridade:
 - [ ] Workflow de CI para testes
 - [ ] Configurando build da aplicação
 
-
 ---
