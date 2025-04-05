@@ -31,11 +31,8 @@ server.setErrorHandler((error, request, reply) => {
     reply.status(500).send({ message: 'Internal server error' })
 })
 
-server.register(fastifyCors, {
-    origin: true,
-})
+server.register(fastifyCors, { origin: '*' })
 server.register(fastifyMultipart)
-
 server.register(fastifySwagger, {
     openapi: {
         info: {
@@ -45,10 +42,7 @@ server.register(fastifySwagger, {
     },
     transform: transformSwaggerSchema,
 })
-
-server.register(fastifySwaggerUi, {
-    routePrefix: '/docs',
-})
+server.register(fastifySwaggerUi, { routePrefix: '/docs' })
 
 server.register(uploadImageRoute)
 

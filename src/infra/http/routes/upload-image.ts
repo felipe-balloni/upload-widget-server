@@ -1,6 +1,4 @@
 import { uploadImage } from '@/app/functions/upload-image'
-import { db } from '@/infra/db'
-import { schema } from '@/infra/db/schemas'
 import { isRight, unwrapEither } from '@/infra/shared/either'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
@@ -11,7 +9,6 @@ export const uploadImageRoute: FastifyPluginAsyncZod = async server => {
         {
             schema: {
                 summary: 'Upload an image',
-
                 consumes: ['multipart/form-data'],
                 response: {
                     201: z.null().describe('Image uploaded.'),
@@ -36,10 +33,12 @@ export const uploadImageRoute: FastifyPluginAsyncZod = async server => {
             const result = await uploadImage({
                 fileName: uploadedFile.filename,
                 contentType: uploadedFile.mimetype,
-                contentLength: uploadedFile.file,
+                contentStream: uploadedFile.file,
             })
 
             if (isRight(result)) {
+                console.log(unwrapEither(result))
+
                 return reply.status(201).send()
             }
 

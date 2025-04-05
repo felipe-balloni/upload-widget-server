@@ -2,13 +2,14 @@ import { Readable } from 'node:stream'
 import { db } from '@/infra/db'
 import { schema } from '@/infra/db/schemas'
 import { type Either, makeLeft, makeRight } from '@/infra/shared/either'
+import { uploadFileToStorage } from '@/infra/storage/upload-file-to-storage'
 import { z } from 'zod'
 import { InvalidFileFormat } from './errors/invalid-file-format'
 
 const uploadImageInput = z.object({
     fileName: z.string(),
     contentType: z.string(),
-    contentLength: z.instanceof(Readable),
+    contentStream: z.instanceof(Readable),
 })
 
 type UploadImageInput = z.infer<typeof uploadImageInput>
@@ -23,20 +24,25 @@ const allowedContentTypes = [
 export async function uploadImage(
     input: UploadImageInput
 ): Promise<Either<InvalidFileFormat, { url: string }>> {
-    const { fileName, contentType, contentLength } =
+    const { fileName, contentType, contentStream } =
         uploadImageInput.parse(input)
 
     if (!allowedContentTypes.includes(contentType)) {
         return makeLeft(new InvalidFileFormat())
     }
 
-    // carregar a imagem para cloudFlare R2
+    const { key, url } = await uploadFileToStorage({
+        folder: 'images',
+        fileName,
+        contentType,
+        contentStream,
+    })
 
     await db.insert(schema.uploads).values({
         name: fileName,
-        remoteKey: fileName,
-        remoteUrl: fileName,
+        remoteKey: key,
+        remoteUrl: url,
     })
 
-    return makeRight({ url: fileName })
+    return makeRight({ url })
 }
