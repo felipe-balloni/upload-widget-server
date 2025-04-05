@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto'
 import { db, pg } from '@/infra/db'
 import { schema } from '@/infra/db/schemas'
 import { drizzle } from 'drizzle-orm/postgres-js'
@@ -45,15 +46,10 @@ describe('Uploads Schema', () => {
         await pg.end()
     })
 
-    beforeEach(async () => {
-        // Limpa a tabela antes de cada teste
-        await db.delete(schema.uploads)
-    })
-
     it('should create a record with UUID v7 and correct fields', async () => {
         const testData = {
             name: 'test-file.txt',
-            remoteKey: 'test-key-123',
+            remoteKey: `${randomUUID()}-test-key-123`,
             remoteUrl: 'https://example.com/test-file.txt',
         }
 
@@ -82,7 +78,7 @@ describe('Uploads Schema', () => {
     it('should fail when trying to create a record with duplicate remoteKey', async () => {
         const testData = {
             name: 'test-file.txt',
-            remoteKey: 'test-key-123',
+            remoteKey: `${randomUUID()}-test-key-123`,
             remoteUrl: 'https://example.com/test-file.txt',
         }
 
@@ -98,7 +94,7 @@ describe('Uploads Schema', () => {
     it('should create a record without remoteUrl', async () => {
         const testData = {
             name: 'test-file.txt',
-            remoteKey: 'test-key-123',
+            remoteKey: `${randomUUID()}-test-key-123`,
         }
 
         const [createdRecord] = await db
