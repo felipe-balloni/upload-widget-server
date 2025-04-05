@@ -11,24 +11,29 @@ O **Upload Widget Server** é um projeto focado em fornecer uma solução backen
 Aqui estão as tarefas planejadas, organizadas por prioridade:
 
 ### 🔧 Tarefas em Progresso
-- [ ] Setup node.js TypeScript & Biome
-- [ ] PostgreSQL no Docker Compose
-- [ ] Variáveis ambiente com Zod
-- [ ] Servidor HTTP com Fastify
-- [ ] Documentação com Swagger
-- [ ] Setup dos testes com Vitest
-- [ ] Configuração do Drizzle ORM
-- [ ] Estratégias de IDs únicos
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
+- [x] Setup node.js TypeScript & Biome
+- [x] PostgreSQL no Docker Compose
+- [x] Variáveis ambiente com Zod
+- [x] Servidor HTTP com Fastify
+- [x] Documentação com Swagger
+- [x] Setup dos testes com Vitest
+- [x] Configuração do Drizzle ORM
+- [x] Estratégias de IDs únicos
+- [x] Função: upload de imagem
+- [x] Functional Error Handling
+- [x] Setup do Cloudflare R2
+- [x] Upload de arquivos para o R2
+- [x] Validando tamanho das imagens
+- [x] Testes: upload de imagem
+- [ ] Função: listagem de uploads
+- [ ] Testes: listagem de uploads
+- [ ] Rota: listagem de uploads
+- [ ] Cursores no Postgres
+- [ ] Função: exportar uploads (CSV)
+- [ ] Rota: exportar uploads
+- [ ] Testes: exportar uploads
+- [ ] Workflow de CI para testes
+- [ ] Configurando build da aplicação
 
 
 ---
