@@ -7,7 +7,13 @@
     },
     "files": {
         "ignoreUnknown": false,
-        "ignore": []
+        "ignore": [
+            "./src/infra/db",
+            "./node_modules",
+            "./dist",
+            "./build",
+            "./coverage"
+        ]
     },
     "formatter": {
         "enabled": true,
