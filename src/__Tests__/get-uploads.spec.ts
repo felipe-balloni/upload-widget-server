@@ -1,0 +1,110 @@
+import { randomUUID } from 'node:crypto'
+import { makeUploads } from '@/__Tests__/factories/make-uploads'
+import { getUploads } from '@/app/functions/get-uploads'
+import { isRight, unwrapEither } from '@/infra/shared/either'
+import dayjs from 'dayjs'
+import { beforeAll, describe, expect, it, vi } from 'vitest'
+
+describe('GetUploads', () => {
+    it('should be able to get the uploads list', async () => {
+        const namePattern = randomUUID()
+
+        const upload1 = await makeUploads({ name: `${namePattern}.webp` })
+        const upload2 = await makeUploads({ name: `${namePattern}.webp` })
+        const upload3 = await makeUploads({ name: `${namePattern}.webp` })
+        const upload4 = await makeUploads({ name: `${namePattern}.webp` })
+        const upload5 = await makeUploads({ name: `${namePattern}.webp` })
+
+        const sut = await getUploads({
+            searchQuery: namePattern,
+        })
+
+        expect(isRight(sut)).toBe(true)
+        expect(unwrapEither(sut).total).toEqual(5)
+        expect(unwrapEither(sut).uploads).toEqual([
+            expect.objectContaining({ id: upload5.id }),
+            expect.objectContaining({ id: upload4.id }),
+            expect.objectContaining({ id: upload3.id }),
+            expect.objectContaining({ id: upload2.id }),
+            expect.objectContaining({ id: upload1.id }),
+        ])
+    })
+
+    it('should be able to get paginated uploads', async () => {
+        const namePattern = randomUUID()
+
+        const upload1 = await makeUploads({ name: `${namePattern}.webp` })
+        const upload2 = await makeUploads({ name: `${namePattern}.webp` })
+        const upload3 = await makeUploads({ name: `${namePattern}.webp` })
+        const upload4 = await makeUploads({ name: `${namePattern}.webp` })
+        const upload5 = await makeUploads({ name: `${namePattern}.webp` })
+
+        let sut = await getUploads({
+            searchQuery: namePattern,
+            page: 1,
+            pageSize: 3,
+        })
+
+        expect(isRight(sut)).toBe(true)
+        expect(unwrapEither(sut).total).toEqual(5)
+        expect(unwrapEither(sut).uploads).toEqual([
+            expect.objectContaining({ id: upload5.id }),
+            expect.objectContaining({ id: upload4.id }),
+            expect.objectContaining({ id: upload3.id }),
+        ])
+
+        sut = await getUploads({
+            searchQuery: namePattern,
+            page: 2,
+            pageSize: 3,
+        })
+
+        expect(isRight(sut)).toBe(true)
+        expect(unwrapEither(sut).total).toEqual(5)
+        expect(unwrapEither(sut).uploads).toEqual([
+            expect.objectContaining({ id: upload2.id }),
+            expect.objectContaining({ id: upload1.id }),
+        ])
+    })
+
+    it('should be able to get sorted uploads', async () => {
+        const namePattern = randomUUID()
+
+        const upload1 = await makeUploads({
+            name: `${namePattern}.webp`,
+            createdAt: new Date(),
+        })
+        const upload2 = await makeUploads({
+            name: `${namePattern}.webp`,
+            createdAt: dayjs().subtract(1, 'days').toDate(),
+        })
+        const upload3 = await makeUploads({
+            name: `${namePattern}.webp`,
+            createdAt: dayjs().subtract(2, 'days').toDate(),
+        })
+        const upload4 = await makeUploads({
+            name: `${namePattern}.webp`,
+            createdAt: dayjs().subtract(3, 'days').toDate(),
+        })
+        const upload5 = await makeUploads({
+            name: `${namePattern}.webp`,
+            createdAt: dayjs().subtract(4, 'days').toDate(),
+        })
+
+        const sut = await getUploads({
+            searchQuery: namePattern,
+            sortBy: 'createdAt',
+            sortDirection: 'desc',
+        })
+
+        expect(isRight(sut)).toBe(true)
+        expect(unwrapEither(sut).total).toEqual(5)
+        expect(unwrapEither(sut).uploads).toEqual([
+            expect.objectContaining({ id: upload1.id }),
+            expect.objectContaining({ id: upload2.id }),
+            expect.objectContaining({ id: upload3.id }),
+            expect.objectContaining({ id: upload4.id }),
+            expect.objectContaining({ id: upload5.id }),
+        ])
+    })
+})
