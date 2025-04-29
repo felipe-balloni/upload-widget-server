@@ -30,8 +30,8 @@ Aqui estão as tarefas planejadas, organizadas por prioridade:
 - [x] Rota: listagem de uploads
 - [x] Cursores no Postgres
 - [x] Função: exportar uploads (CSV)
-- [ ] Rota: exportar uploads
-- [ ] Testes: exportar uploads
+- [x] Rota: exportar uploads
+- [x] Testes: exportar uploads
 - [ ] Workflow de CI para testes
 - [ ] Configurando build da aplicação
 
