@@ -3,7 +3,7 @@ import { makeUpload } from '@/__Tests__/factories/make-upload'
 import { getUploads } from '@/app/functions/get-uploads'
 import { isRight, unwrapEither } from '@/infra/shared/either'
 import dayjs from 'dayjs'
-import { beforeAll, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 describe('GetUploads', () => {
     it('should be able to get the uploads list', async () => {

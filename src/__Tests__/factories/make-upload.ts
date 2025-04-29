@@ -1,6 +1,6 @@
 import { db } from '@/infra/db'
 import { schema } from '@/infra/db/schemas'
-import { fa, fakerPT_BR as faker } from '@faker-js/faker'
+import { fakerPT_BR as faker } from '@faker-js/faker'
 import type { InferInsertModel } from 'drizzle-orm'
 
 export async function makeUpload(
