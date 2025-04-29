@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import { makeUploads } from '@/__Tests__/factories/make-uploads'
+import { makeUpload } from '@/__Tests__/factories/make-upload'
 import { getUploads } from '@/app/functions/get-uploads'
 import { isRight, unwrapEither } from '@/infra/shared/either'
 import dayjs from 'dayjs'
@@ -9,11 +9,11 @@ describe('GetUploads', () => {
     it('should be able to get the uploads list', async () => {
         const namePattern = randomUUID()
 
-        const upload1 = await makeUploads({ name: `${namePattern}.webp` })
-        const upload2 = await makeUploads({ name: `${namePattern}.webp` })
-        const upload3 = await makeUploads({ name: `${namePattern}.webp` })
-        const upload4 = await makeUploads({ name: `${namePattern}.webp` })
-        const upload5 = await makeUploads({ name: `${namePattern}.webp` })
+        const upload1 = await makeUpload({ name: `${namePattern}.webp` })
+        const upload2 = await makeUpload({ name: `${namePattern}.webp` })
+        const upload3 = await makeUpload({ name: `${namePattern}.webp` })
+        const upload4 = await makeUpload({ name: `${namePattern}.webp` })
+        const upload5 = await makeUpload({ name: `${namePattern}.webp` })
 
         const sut = await getUploads({
             searchQuery: namePattern,
@@ -33,11 +33,11 @@ describe('GetUploads', () => {
     it('should be able to get paginated uploads', async () => {
         const namePattern = randomUUID()
 
-        const upload1 = await makeUploads({ name: `${namePattern}.webp` })
-        const upload2 = await makeUploads({ name: `${namePattern}.webp` })
-        const upload3 = await makeUploads({ name: `${namePattern}.webp` })
-        const upload4 = await makeUploads({ name: `${namePattern}.webp` })
-        const upload5 = await makeUploads({ name: `${namePattern}.webp` })
+        const upload1 = await makeUpload({ name: `${namePattern}.webp` })
+        const upload2 = await makeUpload({ name: `${namePattern}.webp` })
+        const upload3 = await makeUpload({ name: `${namePattern}.webp` })
+        const upload4 = await makeUpload({ name: `${namePattern}.webp` })
+        const upload5 = await makeUpload({ name: `${namePattern}.webp` })
 
         let sut = await getUploads({
             searchQuery: namePattern,
@@ -70,23 +70,23 @@ describe('GetUploads', () => {
     it('should be able to get sorted uploads', async () => {
         const namePattern = randomUUID()
 
-        const upload1 = await makeUploads({
+        const upload1 = await makeUpload({
             name: `${namePattern}.webp`,
             createdAt: new Date(),
         })
-        const upload2 = await makeUploads({
+        const upload2 = await makeUpload({
             name: `${namePattern}.webp`,
             createdAt: dayjs().subtract(1, 'days').toDate(),
         })
-        const upload3 = await makeUploads({
+        const upload3 = await makeUpload({
             name: `${namePattern}.webp`,
             createdAt: dayjs().subtract(2, 'days').toDate(),
         })
-        const upload4 = await makeUploads({
+        const upload4 = await makeUpload({
             name: `${namePattern}.webp`,
             createdAt: dayjs().subtract(3, 'days').toDate(),
         })
-        const upload5 = await makeUploads({
+        const upload5 = await makeUpload({
             name: `${namePattern}.webp`,
             createdAt: dayjs().subtract(4, 'days').toDate(),
         })
