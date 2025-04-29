@@ -32,7 +32,7 @@ Aqui estão as tarefas planejadas, organizadas por prioridade:
 - [x] Função: exportar uploads (CSV)
 - [x] Rota: exportar uploads
 - [x] Testes: exportar uploads
-- [ ] Workflow de CI para testes
+- [x] Workflow de CI para testes
 - [ ] Configurando build da aplicação
 
 ---
