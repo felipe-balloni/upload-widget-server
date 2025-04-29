@@ -25,9 +25,9 @@ Aqui estão as tarefas planejadas, organizadas por prioridade:
 - [x] Upload de arquivos para o R2
 - [x] Validando tamanho das imagens
 - [x] Testes: upload de imagem
-- [ ] Função: listagem de uploads
-- [ ] Testes: listagem de uploads
-- [ ] Rota: listagem de uploads
+- [x] Função: listagem de uploads
+- [x] Testes: listagem de uploads
+- [x] Rota: listagem de uploads
 - [ ] Cursores no Postgres
 - [ ] Função: exportar uploads (CSV)
 - [ ] Rota: exportar uploads

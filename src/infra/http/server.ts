@@ -1,3 +1,4 @@
+import { getUploadsRoute } from '@/infra/http/routes/get-uploads'
 import { uploadImageRoute } from '@/infra/http/routes/upload-image'
 import { fastifyCors } from '@fastify/cors'
 import { fastifyMultipart } from '@fastify/multipart'
@@ -45,6 +46,7 @@ server.register(fastifySwagger, {
 server.register(fastifySwaggerUi, { routePrefix: '/docs' })
 
 server.register(uploadImageRoute)
+server.register(getUploadsRoute)
 
 server.listen({ port: 3333, host: '127.0.0.1' }).then(() => {
     console.log('Server listening on port 3333.')
